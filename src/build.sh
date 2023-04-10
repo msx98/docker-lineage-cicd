@@ -89,7 +89,9 @@ if [ "$LOCAL_MIRROR" = true ]; then
   fi
 
   echo ">> [$(date)] Syncing mirror repository" | tee -a "$repo_log"
-  repo sync "${jobs_arg[@]}" --force-sync --no-clone-bundle &>> "$repo_log"
+  if [ "$REPO_SYNC" = true ]; then
+    repo sync "${jobs_arg[@]}" --force-sync --no-clone-bundle &>> "$repo_log"
+  fi
 fi
 
 for branch in ${BRANCH_NAME//,/ }; do
@@ -188,7 +190,9 @@ for branch in ${BRANCH_NAME//,/ }; do
 
     echo ">> [$(date)] Syncing branch repository" | tee -a "$repo_log"
     builddate=$(date +%Y%m%d)
-    repo sync "${jobs_arg[@]}" -c --force-sync &>> "$repo_log"
+    if [ "$REPO_SYNC" = true ]; then
+      repo sync "${jobs_arg[@]}" -c --force-sync &>> "$repo_log"
+    fi
 
     if [ ! -d "vendor/$vendor" ]; then
       echo ">> [$(date)] Missing \"vendor/$vendor\", aborting"

@@ -72,6 +72,9 @@ ENV CRONTAB_TIME 'now'
 # Clean artifacts output after each build
 ENV CLEAN_AFTER_BUILD true
 
+# Syncs repo prior to build
+ENV REPO_SYNC true
+
 # Provide root capabilities builtin inside the ROM (see http://lineageos.org/Update-and-Build-Prep/)
 ENV WITH_SU false
 
